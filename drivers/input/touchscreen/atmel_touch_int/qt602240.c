@@ -2812,7 +2812,7 @@ void touch_data_init(void)
 void quantum_touch_probe(void)
 {
 	U8 report_id;
-	U8 object_type, instance;
+	U8 object_type, instance=0;
 	uint32_t crc, stored_crc;
 #ifdef CHIP_NOINIT
 	uint16_t object_address;
