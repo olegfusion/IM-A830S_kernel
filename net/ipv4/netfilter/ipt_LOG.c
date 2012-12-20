@@ -24,6 +24,7 @@
 #include <linux/netfilter/x_tables.h>
 #include <linux/netfilter_ipv4/ipt_LOG.h>
 #include <net/netfilter/nf_log.h>
+#pragma GCC diagnostic ignored "-Wunused-value"
 #include <net/netfilter/xt_log.h>
 
 MODULE_LICENSE("GPL");
