@@ -19,7 +19,7 @@
 #include <linux/leds.h>
 #include <linux/workqueue.h>
 #include <linux/err.h>
-
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #include <linux/mfd/pm8xxx/core.h>
 #include <linux/mfd/pm8xxx/pwm.h>
 #include <linux/leds-pm8xxx.h>
