@@ -39,7 +39,7 @@ struct venc_inst {
 struct venc {
 	s32 device_handle;
 	void *virt_base;
-	struct venc_inst venc_clients[VID_ENC_MAX_ENCODER_CLIENTS];
+	struct venc_inst venc_clients[VIDC_MAX_NUM_CLIENTS];
 	struct mutex lock;
 	struct ion_client *iclient;
 };
