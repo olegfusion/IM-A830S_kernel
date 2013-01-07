@@ -479,8 +479,8 @@ static struct acpu_level acpu_freq_tbl_8960_kraitv1_nom_fast[] = {
 #define L2(x) (&l2_freq_tbl_8960_kraitv2[(x)])
 static struct l2_level l2_freq_tbl_8960_kraitv2[] = {
 	[0]  = { {STBY_KHZ, QSB,   0, 0, 0x00 }, 1050000, 1050000, 0 },
-	[1]  = { {  384000, PLL_8, 0, 2, 0x00 }, 1050000, 1050000, 1 },
-	[2]  = { {  432000, HFPLL, 2, 0, 0x20 }, 1050000, 1050000, 2 },
+	[1]  = { {  192000, PLL_8, 0, 2, 0x00 }, 1050000, 1050000, 1 },  	
+	[2]  = { {  384000, HFPLL, 2, 0, 0x20 }, 1050000, 1050000, 2 },
 	[3]  = { {  486000, HFPLL, 2, 0, 0x24 }, 1050000, 1050000, 2 },
 	[4]  = { {  540000, HFPLL, 2, 0, 0x28 }, 1050000, 1050000, 2 },
 	[5]  = { {  594000, HFPLL, 1, 0, 0x16 }, 1050000, 1050000, 2 },
@@ -1600,7 +1600,7 @@ static struct acpu_level * __init select_freq_plan(void)
 	/* Find the max supported scaling frequency. */
 	for (l = acpu_freq_tbl; l->speed.khz != 0; l++) {
 		if (oem_smem_boot_mode_read()) {
-			if ((l->use_for_scaling) && (l->speed.khz <= 1512000)) 
+			if ((l->use_for_scaling) && (l->speed.khz <= 1998000)) 
 				max_acpu_level = l;
 		} else {
 			if ((l->use_for_scaling) && (l->speed.khz <= 918000)) 
