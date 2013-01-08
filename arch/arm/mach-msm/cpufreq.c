@@ -67,7 +67,7 @@ static int set_cpu_freq(struct cpufreq_policy *policy, unsigned int new_freq)
 		freqs.new = new_freq;
 	freqs.cpu = policy->cpu;
 	cpufreq_notify_transition(&freqs, CPUFREQ_PRECHANGE);
-	ret = acpuclk_set_rate(policy->cpu, new_freq, SETRATE_CPUFREQ);
+	ret = acpuclk_set_rate(policy->cpu, freqs.new, SETRATE_CPUFREQ);
 	if (!ret)
 		cpufreq_notify_transition(&freqs, CPUFREQ_POSTCHANGE);
 
@@ -280,7 +280,7 @@ static ssize_t store_mfreq(struct sysdev_class *class,
 
 static SYSDEV_CLASS_ATTR(mfreq, 0200, NULL, store_mfreq);
 
-static struct freq_attr *msm_cpufreq_attr[] = {
+static struct freq_attr *msm_freq_attr[] = {
 	&cpufreq_freq_attr_scaling_available_freqs,
 	NULL,
 };
@@ -292,7 +292,7 @@ static struct cpufreq_driver msm_cpufreq_driver = {
 	.verify		= msm_cpufreq_verify,
 	.target		= msm_cpufreq_target,
 	.name		= "msm",
-	.attr		= msm_cpufreq_attr,
+	.attr		= msm_freq_attr,
 };
 
 static struct notifier_block msm_cpufreq_pm_notifier = {
@@ -322,4 +322,3 @@ static int __init msm_cpufreq_register(void)
 }
 
 late_initcall(msm_cpufreq_register);
-
