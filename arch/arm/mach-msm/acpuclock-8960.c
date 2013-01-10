@@ -1082,14 +1082,6 @@ static void kraitv2_apply_vmin(struct acpu_level *tbl)
 #if defined(CONFIG_PANTECH_PMIC)
 static oem_pm_smem_vendor1_data_type *smem_vendor1_ptr = NULL;
 
-static int oem_smem_boot_mode_read(void)
-{
-	if (!smem_vendor1_ptr)
-		return 1;
-
-	return smem_vendor1_ptr->power_on_mode;
-}
-
 static int oem_vendor_smem_init(void)
 {
 	int len = 0;
@@ -1188,23 +1180,12 @@ static struct acpu_level * __init select_freq_plan(void)
 		pr_info("Applying min 1.15v fix for Krait Errata 26\n");
 		kraitv2_apply_vmin(acpu_freq_tbl);
 	}
-#if defined(CONFIG_PANTECH_PMIC)
-	/* Find the max supported scaling frequency. */
-	for (l = acpu_freq_tbl; l->speed.khz != 0; l++) {
-		if (oem_smem_boot_mode_read()) {
-			if ((l->use_for_scaling) && (l->speed.khz <= 1998000)) 
-				max_acpu_level = l;
-		} else {
-			if ((l->use_for_scaling) && (l->speed.khz <= 918000)) 
-				max_acpu_level = l;
-		}
-	}
-#else
+
 	/* Find the max supported scaling frequency. */
 	for (l = acpu_freq_tbl; l->speed.khz != 0; l++)
 		if (l->use_for_scaling)
 			max_acpu_level = l;
-#endif
+
 	BUG_ON(!max_acpu_level);
 	pr_info("Max ACPU freq: %u KHz\n", max_acpu_level->speed.khz);
 	max_vdd = max_acpu_level->vdd_core;
